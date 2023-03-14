@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" 
+   content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<script type="text/javascript" src="https://static.zuora.com/Resources/libs/hosted/1.3.1/zuora-min.js"></script>
+ 
+<script>
+var prepopulateFields = {
+   creditCardAddress1:"123 Any Street",
+   creditCardAddress2:"Suite #999",
+   creditCardCountry:"USA",
+   creditCardHolderName:"John Doe"
+};
+ 
+var params = {
+   tenantId:46463,
+   id:"8ad095b883ea467b0183ebb9513a5d39", 
+   token:"SkIKLG2nH4r6uTh79TNgh3dfuX23eWbt",
+   signature: "QHyE2cFrxC/+YJpTQEqi4lNmrGKpyI3d/WrUadct2B6x9wH6mIA+ur7qHz+vFyebAjwJGuiaQMSF4wBDKt03P87xmQkd7EnxQ4TNMnNx7CMz6jRwTwRjBLrY0bpEYdETVlSZMOzi/9AkdNUbFLMMLKbav3Z6c/IGbEpByUPYKvO6GnsaUbgDL8N9CIo3vBFGcEEhB4yKLdS3SnPIXUFHhOXtJdbPWGccUf9e0vAKytThy1xhveDf2296NPAwko+18aNdJpJZmcKCDkzS1vBelj10dVb821wI6+VZE77/7NN160ry9PU0GUdaKcMAJRUUP/Zd/afiFrogVA7pihycWg==",
+   style:"inline",
+   key:"MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAlOBATdUNHKTwWM0OZYl/vjHOugxOwjybsw+6u8Tddil/u1Z0drY3O2WV+Ff9KKzxLBm7Y51I1Ys3K+ztVttwcUh9qnic5IvW+/zFqDMwVwTODIbxtKXNBC1DwVdKjoq+VuG3BCC+89oIyK/L056cnA7DFGYHXekXM42jd2USCQeGa2oesjKZ/eQQgKSFomj9+NkfFMuA5RGMDcgSnN2ckFAdhU4Fij108x18GR5CXtvreOWkhv7Tsmt4mdVfm606nasdo7C6b256h6MGppJoMPRKh0+6T0aEkmDyjNRvnNA8CC4/O2PGj751UWqvujN37t7Ta8tKARpJrDAUUTALzwIDAQAB",
+   submitEnabled:"true", 
+   locale:"en_US", 
+   url:"https://apisandbox.zuora.com/apps/PublicHostedPageLite.do", 
+   paymentGateway:"Demo Test Gateway"
+}
+
+function callback(response) {
+    if (response.success) {
+      alert("Success");
+   }
+     else {
+      alert(
+        'errorcode=' +
+          response.errorCode +
+          ', errorMessage=' +
+          response.errorMessage
+      );
+    }
+}
+
+
+        
+function loadHostedPage() {
+   Z.setEventHandler("onloadCallback", function() {
+      setLoading(false);
+   });
+
+   Z.render(params,  prepopulateFields,callback);
+}
+function onAgree() {
+        if(document.getElementById("agreement").checked) {
+            if (!Z.setAgreement("External","Recurring","Visa","http://www.google.com"))
+                return;
+        } else {
+            if(!Z.setAgreement("","","",""))
+                return;
+        }
+    }
+
+</script>
+</head>
+
+<body onload="loadHostedPage();">
+   <div id="zuora_payment" ></div>
+   <div id="checkBoxDiv" class="item">
+      <input id="agreement" type="checkbox" onclick="onAgree()"> I agree
+  </div>
+</body>
+</html>

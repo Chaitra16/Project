@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" 
+   content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<!-- Zuora Public javascript library -->
+<script type="text/javascript" src="https://static.zuora.com/Resources/libs/hosted/1.3.0/zuora-min.js"></script>
+<script>
+// <!-- optional params in case prepopulation of certain fields is desired-->
+
+function callback(response) {
+    if (response.success) {
+      if (response.refId) {
+        updateFormData({
+          hpmCreditCardPaymentMethodId: response.refId,
+        });
+        router.push('/review-order');
+      }
+    } else {
+      alert(
+        'errorcode=' +
+          response.errorCode +
+          ', errorMessage=' +
+          response.errorMessage
+      );
+    }
+  }
+
+ 
+// Sample params for rendering iframe on the client side
+function loadHostedPage() {
+var params = {
+   tenantId:46463,
+   id:"8ad0887e8455bb3101845be02d2d1e3e", 
+   token:"d8uF0ush6sLUXcq8igI7LiRZPhrtQY5c",
+   signature:"Gh7l/QclBcmd/KCYLZexuePXLC8YKuPsgZK8tIaXeFGYR46KGEXvD3xAflApA0Yt3WW/RXwVm23+jQNBIjHrkFn95em0mR+Z4Q/7M9NpyHSiCiArjW1lOVgJtyz4Sg9FniuJ/nLEHwhMNMtQ3FS0qnep0GtBpPjX9VrE6jJuIQRWrx70VGVDoDg6DxHJha3XwoD+PU3qG48n+AWyLBqDEEzwObXaOalixSdYzGv9t9dsBHwj7pwWt5SqIEqGm42/jbPnl9kNdycYUSCRsN6pN2Wd4a46gv+givn5XE1EMbBw7Y/k5ISPVMIQxT3QlxTFucxmetj8WYi36zCFCZYHXA==",
+   style:"inline",
+   key:"MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAlOBATdUNHKTwWM0OZYl/vjHOugxOwjybsw+6u8Tddil/u1Z0drY3O2WV+Ff9KKzxLBm7Y51I1Ys3K+ztVttwcUh9qnic5IvW+/zFqDMwVwTODIbxtKXNBC1DwVdKjoq+VuG3BCC+89oIyK/L056cnA7DFGYHXekXM42jd2USCQeGa2oesjKZ/eQQgKSFomj9+NkfFMuA5RGMDcgSnN2ckFAdhU4Fij108x18GR5CXtvreOWkhv7Tsmt4mdVfm606nasdo7C6b256h6MGppJoMPRKh0+6T0aEkmDyjNRvnNA8CC4/O2PGj751UWqvujN37t7Ta8tKARpJrDAUUTALzwIDAQAB",
+   submitEnabled:"true", 
+   // locale:"en_US", 
+   // param_supportedTypes:"AmericanExpress,JCB,Visa,MasterCard,Discover,Dankort",
+   url:"https://apisandbox.zuora.com/apps/HostedPageLite.do?method=preview&id=8ad0887e8455bb3101845be02d2d1e3e",
+   paymentGateway:"Demo BlueSnap US"//payment gateway name
+};
+Z.setEventHandler('onloadCallback', function () {
+      setLoading(false);
+    });
+
+    Z.render(params, {}, callback);
+  
+   }
+
+
+        
+// function loadHostedPage() {
+//    Z.setEventHandler("onloadCallback", function() {
+//       // "do something when HPM iframe is loaded".
+//       console.log("HPM page is Loaded");
+//       setLoading(true);
+//    });
+// //    console.log("Before");
+//    // Z.render(params,prepopulateFields,callback);
+//    Z.render(params, {}, callback);
+// //   console.log("after");
+// // alert("We are here");  
+
+
+// }return (
+   
+
+</script>
+</head>
+
+<!-- <body onclick="loadHostedPage();"> -->
+   <Body>   
+      <p>Click on the following button for calling the function: </p>        
+            <form>  
+               <input type = "button" onclick = "loadHostedPage()" value = "Message Print">   
+            </form>       
+            <p>  
+      </Body>  
+  <div id="zuora_payment" ></div>
+<h1>Welcome</h1>
+ </body> 
+</html>

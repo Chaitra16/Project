@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" 
+   content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<!-- Zuora Public javascript library -->
+<script type="text/javascript" src="https://static.zuora.com/Resources/libs/hosted/1.3.1/zuora-min.js"></script>
+<script>
+// <!-- optional params in case prepopulation of certain fields is desired-->
+var prepopulateFields = {
+   creditCardAddress1:"123 Any Street",
+   creditCardAddress2:"Suite #999",
+   creditCardCountry:"USA",
+   creditCardHolderName:"John Doe"
+};
+ 
+// Sample params for rendering iframe on the client side
+var params = {
+   tenantId:46463,
+   id:"8ad08871847576a60184761331660841", 
+   token:"wqkmbQI48HZTqfDBfGLlbhAwYJw1kvKM",
+   signature: "Eh+xvX9PH8JJuSlQmu4LFYgScs9bfVTiAsLmakIp1rxK5t22tLKxCYyZ4U4EfCShxvOQkzqLxsDuM10CMx0pFViTTAW29f8fW3EPRa5a/06GaMRjtZCyiLh7+LfN+cP0aA6tvDEEqQgeJzBx/Qec4i+Bk1lpN2ujX3PQnEbm2Uee6TnaqfYw+ZnKCzkFU2HhFjrwB8OkFdFRGL8GVs8h4X2AqlslgJsIH3+doI5m1lbzpr0GI7IsBKoGIv3Dp7Rjm9hIHrRksyMRQJHgpoOLOfujlyxLdtCwCPl2Wz+YiBmLEFQFFe4idCsSgMpVA8lWjnlHaHSAnFkGnV/wuaTJrw==",
+   style:"overlay",
+   key:"MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAlOBATdUNHKTwWM0OZYl/vjHOugxOwjybsw+6u8Tddil/u1Z0drY3O2WV+Ff9KKzxLBm7Y51I1Ys3K+ztVttwcUh9qnic5IvW+/zFqDMwVwTODIbxtKXNBC1DwVdKjoq+VuG3BCC+89oIyK/L056cnA7DFGYHXekXM42jd2USCQeGa2oesjKZ/eQQgKSFomj9+NkfFMuA5RGMDcgSnN2ckFAdhU4Fij108x18GR5CXtvreOWkhv7Tsmt4mdVfm606nasdo7C6b256h6MGppJoMPRKh0+6T0aEkmDyjNRvnNA8CC4/O2PGj751UWqvujN37t7Ta8tKARpJrDAUUTALzwIDAQAB",
+   submitEnabled:"true", 
+   // locale:"en_US", 
+   // param_supportedTypes:"AmericanExpress,JCB,Visa,MasterCard,Discover,Dankort",
+   // url:"https://apisandbox.zuora.com/apps/HostedPageLite.do?method=preview&id=8ad095b883ea467b0183ebb9513a5d39",
+   url:"https://apisandbox.zuora.com/apps/PublicHostedPageLite.do", 
+   paymentGateway:"Demo BlueSnap US",//payment gateway name
+   field_accountId: "8ad08aef84851baa0184852ab72b785d"
+};
+
+function callback(response) {
+    if (response.success) {
+      // if (response.refId) {
+      //   updateFormData({
+      //     hpmCreditCardPaymentMethodId: response.refId,
+      //   });
+      // }
+      alert("Success");
+   }
+     else {
+      alert(
+        'errorcode=' +
+          response.errorCode +
+          ', errorMessage=' +
+          response.errorMessage
+      );
+    }
+}
+
+
+        
+function loadHostedPage() {
+   Z.setEventHandler("onloadCallback", function() {
+      // do something when HPM iframe is loaded.
+      console.log("HPM page is Loaded");
+      setLoading(false);
+   });
+//    console.log("Before");
+   // Z.render(params,prepopulateFields,callback);
+   Z.render(params, {}, callback); 
+}
+</script>
+</head> 
+<body onload="loadHostedPage();">
+   <div id="zuora_payment" ></div>
+</body>
+</html>
+

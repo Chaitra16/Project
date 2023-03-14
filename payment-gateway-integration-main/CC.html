@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" 
+   content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<!-- Zuora Public javascript library -->
+<script type="text/javascript" 
+   src="https://static.zuora.com/Resources/libs/hosted/1.1.0/zuora-min.js"/></script>
+<script>
+<!-- optional params in case prepopulation of certain fields is desired-->
+var prepopulateFields = {
+   creditCardAddress1:"123 Any Street",
+   creditCardAddress2:"Suite #999",
+   creditCardCountry:"USA",
+   creditCardHolderName:"John Doe"
+};
+ 
+// Sample params for rendering iframe on the client side
+var params = {
+   tenantId:46463,
+   id:"8ad095b883ea467b0183ebb9513a5d39", 
+   // id: process.env.NEXT_PUBLIC_ZUORA_HOSTED_PAGE_ID,
+   token:"2yd5Ix9usBhtbqcSh55axW2pfYkyrdqY",
+   signature:"dlnF/XEXVsrRCj4ulyCuffsZPoCtja8tGU7Xj9T2Zi8wzIRULMOPO9Pi9HJiA1H3xlEc8JPc7xTsI9O8d5OXeQcjrI5dI9xbRl6EltpUedmPduqbs+WczYJKKgfbJkGv65suW425/RoSuywMHLO9PCAnpNWFes8zglGNxBENjQlIApWhznwNnwcALHwYuh/mxNF0ZXbWOkIGu83S2LbgYhXTteI7K8oyoK19UjWMwEd4kvvTQGUt3vd0egGyXapOFo2y3AGcTkheG3KqihLavfz+XAuJNTykJsoa1sqEVwKYYe19ciWuCk7csJdCT+FIeRi+EWCpfWGXhhQAziHVBQ==",
+   style:"inline",
+   key:"MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAlOBATdUNHKTwWM0OZYl/vjHOugxOwjybsw+6u8Tddil/u1Z0drY3O2WV+Ff9KKzxLBm7Y51I1Ys3K+ztVttwcUh9qnic5IvW+/zFqDMwVwTODIbxtKXNBC1DwVdKjoq+VuG3BCC+89oIyK/L056cnA7DFGYHXekXM42jd2USCQeGa2oesjKZ/eQQgKSFomj9+NkfFMuA5RGMDcgSnN2ckFAdhU4Fij108x18GR5CXtvreOWkhv7Tsmt4mdVfm606nasdo7C6b256h6MGppJoMPRKh0+6T0aEkmDyjNRvnNA8CC4/O2PGj751UWqvujN37t7Ta8tKARpJrDAUUTALzwIDAQAB",
+   submitEnabled:"true", 
+   // url:`${process.env.NEXT_PUBLIC_ZUORA_PAYMENT_URL}/apps/PublicHostedPageLite.do`,
+   // paymentGateway: process.env.NEXT_PUBLIC_ZUORA_PAYMENT_GATEWAY_NAME,
+   // locale:"en_US", 
+   // param_supportedTypes:"AmericanExpress,JCB,Visa,MasterCard,Discover,Dankort",
+   url:"https://apisandbox.zuora.com/apps/PublicHostedPageLite.do", 
+   paymentGateway:"Demo Test Gateway"//payment gateway name
+};
+
+function callback(response) {
+   var redirectUrl = "";
+   if(response.success) {
+      alert("Success"); 
+   } 
+   else {
+      if(response.responseFrom == "Response_From_Submit_Page") {
+         // Handle the error response when the Payment Page submission failed.
+         alert("Failure");
+      }
+      else{
+         alert("Request failed");
+         // Handle the error response when the Payment Page request failed.
+        }
+   }
+   // window.location.replace(redirectUrl);
+}
+
+
+        
+function loadHostedPage() {
+   Z.setEventHandler("onloadCallback", function() {
+      // do something when HPM iframe is loaded.
+      console.warn("HPM page is loaded.");
+   });
+
+   Z.render(
+      params,
+      prepopulateFields,
+      callback
+   );
+}
+</script>
+</head>
+
+<body onload="loadHostedPage();">
+   <div id="zuora_payment" ></div>
+</body>

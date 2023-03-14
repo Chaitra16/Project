@@ -1,0 +1,179 @@
+
+/*  bhoechie tab */
+div.bhoechie-tab-container{
+    z-index: 10;
+    background-color: #ffffff;
+    padding: 0 !important;
+    width: 1000px;
+    border-radius: 4px;
+    -moz-border-radius: 4px;
+    border:1px solid #ddd;
+    margin-top: 20px;
+    margin-left: 130px;
+    -webkit-box-shadow: 0 6px 12px rgba(0,0,0,.175);
+    box-shadow: 0 6px 12px rgba(0,0,0,.175);
+    -moz-box-shadow: 0 6px 12px rgba(0,0,0,.175);
+    background-clip: padding-box;
+    opacity: 0.97;
+    filter: alpha(opacity=97);
+  }
+  div.bhoechie-tab-menu{
+    padding-right: 0;
+    padding-left: 0;
+    padding-bottom: 0;
+  }
+  div.bhoechie-tab-menu div.list-group{
+    margin-bottom: 0;
+  }
+  div.bhoechie-tab-menu div.list-group>a{
+    margin-bottom: 0;
+  }
+  div.bhoechie-tab-menu div.list-group>a .bi,
+  div.bhoechie-tab-menu div.list-group>a .fa {
+    color: #5A55A3;
+    font-size: 30px
+  }
+  div.bhoechie-tab-menu div.list-group>a:first-child{
+    border-top-right-radius: 0;
+    -moz-border-top-right-radius: 0;
+  }
+  div.bhoechie-tab-menu div.list-group>a:last-child{
+    border-bottom-right-radius: 0;
+    -moz-border-bottom-right-radius: 0;
+  }
+  div.bhoechie-tab-menu div.list-group>a.active,
+  div.bhoechie-tab-menu div.list-group>a.active .bi,
+  div.bhoechie-tab-menu div.list-group>a.active .fa{
+    background-color: #5A55A3;
+    background-image: #5A55A3;
+    color: #ffffff;
+  }
+  div.bhoechie-tab-menu div.list-group>a.active:after{
+    content: '';
+    position: absolute;
+    left: 100%;
+    top: 50%;
+    margin-top: -13px;
+    border-left: 0;
+    border-bottom: 13px solid transparent;
+    border-top: 13px solid transparent;
+    border-left: 10px solid #5A55A3;
+  }
+  
+  div.bhoechie-tab-content{
+    background-color: #ffffff;
+    /* border: 1px solid #eeeeee; */
+    padding-left: 10px;
+    padding-top: 10px;
+  }
+  
+  div.bhoechie-tab div.bhoechie-tab-content:not(.active){
+    display: none;
+  }
+
+
+.bhoechie-tab-content input[type=text]{
+    width: 40%;
+    padding: 12px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    resize: vertical; 
+}
+.bhoechie-tab-content select
+ {
+    padding: 12px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    resize: vertical;
+    width: 40%;
+}
+
+.bhoechie-tab-content input[type=number]
+{
+    width: 40%;
+    padding: 12px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    resize: vertical;
+}
+
+.bhoechie-tab-content label {
+    padding: 12px 12px 12px 0;
+    display: inline-block;
+}
+
+.bhoechie-tab-content input[type=submit] {
+    background-color: #04AA6D;
+    color: white;
+    padding: 12px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    margin-right: 50px ;
+    margin-top: 30px;
+}
+
+.bhoechie-tab-content input[type=submit]:hover {
+    background-color: #45a049;
+}
+
+
+  .col-25 {
+    float: left;
+    width: 25%;
+    margin-top: 6px;
+}
+
+.col-75 {
+    float: left;
+    width: 75%;
+    margin-top: 6px;
+}
+.col-75.expire {
+    width: 10%;
+}
+.col-75.error select {
+    border-color: #ff3860;
+}
+
+.col-75.success select {
+    border-color: #09c372;
+    
+}
+
+.col-75.success input {
+    border-color: #09c372;
+    
+}
+
+.col-75.error input {
+    border-color: #ff3860;
+}
+
+.col-75 .error {
+    color: #ff3860;
+    font-size: 13px;
+    height: 13px;
+}
+.col-75 .error1 {
+    color: #ff3860;
+    font-size: 13px;
+    height: 13px;
+}
+/* Clear floats after the columns */
+.row:after {
+    content: "";
+    display: table;
+    clear: both;
+}
+
+/* Responsive layout - when the screen is less than 600px wide, make the two columns stack on top of each other instead of next to each other */
+@media screen and (max-width: 600px) {
+
+    .col-25,
+    .col-75,
+    input[type=submit] {
+        width: 100%;
+        margin-top: 0;}
+      
+}

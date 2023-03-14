@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <!-- Zuora Public javascript library -->
+    <script type="text/javascript"
+            src="https://static.zuora.com/Resources/libs/hosted/1.3.1/zuora-min.js"></script>
+    <script>
+    // <!-- optional params in case prepopulation of certain fields is desired-->
+    var prepopulateFields = {
+        creditCardAddress1:"123 Any Street",
+        creditCardAddress2:"Suite #999",
+        creditCardCountry:"USA",
+        creditCardHolderName:"John Doe"
+    };
+
+    // Sample params for rendering iframe on the client side
+    var params = {
+        tenantId:46463,
+        id:"8ad095b883ea467b0183ebb9513a5d39", 
+        token:"UfNZq4taWsplrDefR5LuG3l4sl5iK85f",
+        signature:"PlelQ0Z48+r6hOKx7a245ovc717uorhb8uyRtBUgv6LunceM61Si/226ymllL0vnxTssMKaQpDH+Qo3VEnzyn0mWcs9bAQ+DxikQTLGEyvP2JMP5C7XnZZ4TXtd+5Ko0cKUBLMRNuMVx1UTV+YNZKFcOckclImCOiHquamIMfaXTJj9GojUh/CnDJFQfNYDrL3ZEUmr64lrC9fBV56hCvQZe4A9uc8LzQvxypFmMzz/e+ZGytynerU2l5h3/xALwW0l2GfPkL63zmSN5qTYpyC4NoBVAy+NMlqPUMILKRTElSKwxtny+f/cUBXnzrn+xzk3wfgFXwo3ugKlMIGORJQ==",
+        style:"inline",
+        key:"MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAlOBATdUNHKTwWM0OZYl/vjHOugxOwjybsw+6u8Tddil/u1Z0drY3O2WV+Ff9KKzxLBm7Y51I1Ys3K+ztVttwcUh9qnic5IvW+/zFqDMwVwTODIbxtKXNBC1DwVdKjoq+VuG3BCC+89oIyK/L056cnA7DFGYHXekXM42jd2USCQeGa2oesjKZ/eQQgKSFomj9+NkfFMuA5RGMDcgSnN2ckFAdhU4Fij108x18GR5CXtvreOWkhv7Tsmt4mdVfm606nasdo7C6b256h6MGppJoMPRKh0+6T0aEkmDyjNRvnNA8CC4/O2PGj751UWqvujN37t7Ta8tKARpJrDAUUTALzwIDAQAB",
+        submitEnabled:"true",
+        // locale:"fr_FR",
+        // param_supportedTypes:"AmericanExpress,JCB,Visa,MasterCard,Discover,Dankort",
+        // url:"https://www.zuora.com/apps/PublicHostedPageLite.do",
+        url:"https://apisandbox.zuora.com/apps/PublicHostedPageLite.do", 
+        paymentGateway:"Demo Test Gateway", //payment gateway name
+        // field_accountId: "8ad08aef84851baa0184852ab72b785d"
+    };
+
+    function callback(response) {
+        if(response.success) {
+            var redirectUrl =
+                "../thanks?refid="+response.refId+"&field_passthrough1="
+                +response.field_passthrough1;
+            window.location.replace(redirectUrl);
+        } else {
+            alert("errorcode="+response.errorCode + ", errorMessage="+response.errorMessage);
+        }
+    }
+
+    
+// function callback(response) {
+//     if (response.success) {
+//       // if (response.refId) {
+//       //   updateFormData({
+//       //     hpmCreditCardPaymentMethodId: response.refId,
+//       //   });
+//       // }
+//       alert("Success");
+//    }
+//      else {
+//       alert(
+//         'errorcode=' +
+//           response.errorCode +
+//           ', errorMessage=' +
+//           response.errorMessage
+//       );
+//     }
+// }
+// function callback(response) {
+//    var redirectUrl = "";
+//    if(response.success) {
+//       redirectUrl = 
+//          "https://yourdomain.com/yourapp/callback.jsp?refid="
+//          + response.refId + "&field_passthrough1="
+//          + response.field_passthrough1;
+//       window.location.replace(redirectUrl);
+//    } 
+//    else {
+//       if(response.responseFrom == "Response_From_Submit_Page") {
+//          // Handle the error response when the Payment Page submission failed.
+//          redirectUrl = 
+//             "https://yourdomain.com/yourapp/callback.jsp?success=false&errorcode="
+//             + response.errorCode 
+//             + "&errorMessage=" + response.errorMessage;
+//       }
+//       else{
+//          // Handle the error response when the Payment Page request failed.
+  
+//       }
+//    }
+//    window.location.replace(redirectUrl);
+// }
+
+    function loadHostedPage() {
+        Z.setEventHandler("onloadCallback", function() {
+          // do something when HPM iframe is loaded.
+        console.warn("HPM page is loaded.");
+        // setLoading(false);
+        });
+        
+        Z.render(
+            params,
+            prepopulateFields,
+            callback
+        );
+    }
+
+    function onAgree() {
+        if(document.getElementById("agreement").checked) {
+            if (!Z.setAgreement("External","Recurring","Visa","http://www.google.com"))
+                return;
+        } else {
+            if(!Z.setAgreement("","","",""))
+                return;
+        }
+    }
+
+    </script>
+</head>
+
+<body onload="loadHostedPage();">
+    <div id="zuora_payment" ></div>
+    <div id="checkBoxDiv" class="item">
+        <input id="agreement" type="checkbox" onclick="onAgree()"> I agree
+    </div>
+</body>
+</html>

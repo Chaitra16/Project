@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<!-- Zuora Public javascript library -->
+<script type="text/javascript" src="https://static.zuora.com/Resources/libs/hosted/1.3.1/zuora-min.js"></script>
+<script>
+// <!-- optional params in case prepopulation of certain fields is desired-->
+var prepopulateFields = {
+   creditCardAddress1:"123 Any Street",
+   creditCardAddress2:"Suite #999",
+   creditCardCountry:"USA",
+   creditCardHolderName:"John Doe"
+};
+ 
+// Sample params for rendering iFrame on the client side
+var params = {
+    tenantId:46463,
+        id:"8ad095b883ea467b0183ebb9513a5d39", 
+        token:"pgzPvSQXNwHDnJNNzGmbYRPNt2vCdU5n",
+        signature:"VIem7YBwp1Y40ar32yh5czh1vipjYJK0OMljSXwFnVEIc8pl05UHgUcip+r2mJIMlxS5AWxm52IxRDjvhMzenqzZU7/hTO0fLNyq6Y53enG0j+05LHFADgO9W6VzTW6TVvdwZAWdU6J8/lfOSJ7oZtIF7x6vJXPEl24f6hYstXmpY4cwhtVn3TmZYGiuyolGRs7E7Upntfdb5mUQYVm+0zEjY5DqDW4Dg5QHFNxx3la6X0IvjGd1B+8rD7g6HaNtxO9wzXUKeaITtRRKXzsNjvhac4fbmphzKlXMS9ZAYkAHY4ZE6VTVymECwM1D1pR9uGXS+W7XoKJ5vE3fXEosxQ==",
+        style:"inline",
+        key:"MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQC59DglWlsd82ooSVYyXoniF5rln3edz+5tdPLVBXXPDVXDCI9w7sneaj+XQs5LFaHZby117XzE8CFmoskVd2tsGLvXr83gEQ7eCXUrY0NDBFlAs0t+ChkB18VXG2DBbeUCI2poZJpCbpQm4rSvqUeY+8H/+/Stf4hXFWVPEEWyjwIDQAB",
+        submitEnabled:"false",
+        // locale:"fr_FR",
+      //   param_supportedTypes:"AmericanExpress,JCB,Visa,MasterCard,Discover,Dankort",
+      //   url:"https://www.zuora.com/apps/PublicHostedPageLite.do",
+       url:"https://apisandbox.zuora.com/apps/PublicHostedPageLite.do",
+        paymentGateway:"Demo Test Gateway" ,//payment gateway name
+    //     field_accountId: "8ad09fc2830721ac01830c26500c17b9"
+};
+
+// function forwardCallbackURL(response) {
+//    var callbackUrl = "<%=request.getContextPath()%>/callback?";
+//    for(id in response) {
+//       callbackUrl = callbackUrl+id+"="+encodeURIComponent(response[id])+"&";
+//    }
+//    window.location.replace(callbackUrl);
+// }
+
+// var callback = function (response) {
+//    if(!response.success) {
+//       // Requesting Payment Page failed. Error handling code should be added here. Simply forward to the callback url in sample code.
+//       forwardCallbackURL(response);
+//    }
+// };
+function callback(response) {
+        if(response.success) {
+            var redirectUrl =
+                "../thanks?refid="+response.refId+"&field_passthrough1="
+                +response.field_passthrough1;
+            window.location.replace(redirectUrl);
+        } else {
+            alert("errorcode="+response.errorCode + ", errorMessage="+response.errorMessage);
+        }
+    }
+function loadHostedPage() {
+   Z.setEventHandler("onloadCallback", function() {
+      // do something when HPM iframe is loaded.
+      console.log("HPM page is Loaded");
+      // setLoading(false);
+   });
+   Z.render(
+      params,
+      prepopulateFields,
+      callback
+   );
+}
+function onAgree() {
+        if(document.getElementById("agreement").checked) {
+            if (!Z.setAgreement("External","Recurring","Visa","http://www.google.com"))
+                return;
+        } else {
+            if(!Z.setAgreement("","","",""))
+                return;
+        }
+    }
+
+//External button: function to submit form
+function submitPage() {
+    Z.submit();
+}
+</script>
+</head>
+
+<body onload="loadHostedPage();">
+   <div id="zuora_payment" ></div>
+   <div id="checkBoxDiv" class="item">
+      <input id="agreement" type="checkbox" onclick="onAgree()"> I agree
+  </div>
+
+   <!--Add additional form fields as needed→
+   
+   <!-- <!--External button: button to submit form→ -->
+   <button onclick="submitPage()">Submit</button>
+</body>
+
